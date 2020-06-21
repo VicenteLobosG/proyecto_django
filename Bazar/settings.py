@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'LogAuth.apps.LogauthConfig',
+    'app1.apps.App1Config',
 ]
 
 MIDDLEWARE = [
