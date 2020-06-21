@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 app_name='fiesta'
 
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('articulos', views.articulos, name="articulos"),
-    path('carrito', views.carrito, name="carrito"),
+    #path('', views.list, name="list"),
+    #path('create', views.create, name="create"),
+    #path('update/<int:poll_id>', views.update, name="update"),
+    #path('delete/<int:poll_id>', views.delete, name="delete"),
 ]

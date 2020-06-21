@@ -11,7 +11,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container"><!--Lo meto a un contenedor para que me quede centrado y full width -->
         <a class="navbar-brand" href="{% url 'fiesta:home' %}">
-            <img src="{% static 'images/logo.jpg' %}" alt="LOGO FIESTA" id="logo">
+            <img src="{% static 'images/logo.jpg' %}" alt="LOGO POLLS" id="logo">
         </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,13 +26,13 @@
                 <a class="nav-link" href="{% url 'fiesta:articulos' %}">Articulos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'fiesta:carrito' %}">Carrito</a>
+                <a class="nav-link" href="fiesta:carrito">Carrito</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Rellenar alguna wea aqui, ta muy pelao xd</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'fiesta:home' %}">
+            <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'polls:list' %}">
               <input class="form-control mr-sm-2" type="search" name="q" placeholder="Buscar" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
