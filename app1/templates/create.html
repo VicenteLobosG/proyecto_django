@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %} Agregar Preguntas{% endblock %}
+
+
+{% block content_head %}
+	<h2>Agregar Pregunta</h2>
+{% endblock %}
+
+
+{% block breadcrumb %}
+
+  <li class="breadcrumb-item"><a href="{% url 'polls:list' %}">Polls</a></li>
+
+  <li class="breadcrumb-item active" aria-current="page">Agregar Encuesta</li>
+{% endblock %}
+
+
+{% block content_body %}
+	
+
+	
+
+		<!--{% bootstrap_messages %}-->
+		{% bootstrap_messages %}
+		<form class="" method="post">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{% buttons %}
+        		<button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-plus-square"></i>
+        			Guardar Encuesta
+        		</button>
+    		{% endbuttons %}
+    	</form>
+
+{% endblock %}
+
+
+
+
+	
+
+	

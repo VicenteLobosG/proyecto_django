@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %} Eliminar Preguntas{% endblock %}
+
+
+
+{% block content_head %}
+	<h2>Borrar pregunta</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item"><a href="{% url 'polls:list' %}">Polls</a></li>
+	
+	<li class="breadcrumb-item active" aria-current="page">Borrar Pregunta</li>
+
+{% endblock %}
+
+{% block content_body %}
+	
+	<p> Estas seguro de eliminar a <strong>{{question.question_text}}</strong>?</p>
+
+	<form class="" method="post">
+		{% csrf_token %}
+		
+		<input type="submit" name="" value="Eliminar" class="btn btn-danger">|
+
+		<a href="{% url 'polls:list' %}" class="btn btn-secondary">Cancelar
+		</a>
+
+	</form>
+
+{% endblock %}

@@ -15,8 +15,6 @@ class Inventario(models.Model):
 	hora_act = models.DateTimeField('fecha de actualizacion')
 
 
-
-
 class Venta(models.Model):
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
 	hora_venta = models.DateTimeField('hora venta')
