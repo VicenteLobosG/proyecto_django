@@ -1,0 +1,48 @@
+.breadcrumb{
+background:white;
+padding-left:0;
+}
+
+.breadcrumb a{
+color:black;
+}
+
+
+.navbar a{
+	font-family: Verdana !important;
+
+}
+
+.navbar-brand img#logo {
+	max-width:60px;
+
+}
+
+.bg-dark-primary {
+	background-color: #444!important;
+	margin: 0;
+	padding: 0;
+
+}
+
+.bg-dark-primary .container{
+	color: #FFFFFF;
+
+}
+
+.bg-dark-primary .container p {
+	width:100%;
+	text-align: right;
+	margin-bottom: 0;
+
+}
+
+.bg-dark-primary .container a {
+	color: red;
+	text-decoration: none;
+}
+
+.bg-dark-primary .container a:hover{
+	color:blue;
+
+}

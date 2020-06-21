@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %} Actualizar Preguntas{% endblock %}
+
+{% block content_head %}
+	<h2>Actualizar Pregunta</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item"><a href="{% url 'polls:list' %}">Polls</a></li>
+	
+	<li class="breadcrumb-item active" aria-current="page">Actualizar Pregunta</li>
+
+{% endblock %}
+
+{% block content_body %}
+	<h2>Editar Pregunta</h2>
+
+	<form class="" method="post">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% buttons %}
+        		<button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-edit"></i>
+        			Actualizar Encuesta
+        		</button>
+    		{% endbuttons %}
+	</form>
+
+{% endblock %}
+
