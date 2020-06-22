@@ -9,7 +9,13 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 <<<<<<< HEAD
+<<<<<<< HEAD
     path('', include('LogAuth.urls'))
+=======
+    path('', include('LogAuth.urls')),
+    path('app1/', include('app1.urls')),
+
+>>>>>>> miguelrodriguez
 =======
     path('', include('LogAuth.urls')),
     path('app1/', include('app1.urls')),
