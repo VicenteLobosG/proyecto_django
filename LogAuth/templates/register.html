@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content_body %}
+
+<h1>Formulario de registro</h1>
+  {% bootstrap_messages %}
+
+    
+  <form class="" method="post" >
+    {% csrf_token %}
+         
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button type="submit" class="btn btn-primary btn-lg btn-block">
+        <i class="fas fa-save"></i> Crear usuario
+      </button>
+    {% endbuttons %}
+  </form>
+
+
+{% endblock %}

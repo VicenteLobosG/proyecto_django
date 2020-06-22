@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.models import User
 from LogAuth.models import Profile
+from LogAuth.forms import UserForm
 from django.db import IntegrityError
 
 # Create your views here.
@@ -47,3 +48,55 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('auth:login')
+
+def register(request):
+    data = {}
+
+    data['form'] = UserForm(request.POST or None)
+
+    if request.method == 'POST':
+        if data['form'].is_valid():
+
+            try:
+                user = User.objects.create_user(
+                    username=request.POST['username'],
+                    password=request.POST['password'],
+                    )
+
+                profile = Profile.objects.create(
+                    usuario=user,
+                    fecha_nacimiento=request.POST['fecha_nacimiento'],
+                    comuna=request.POST['comuna'],
+                    direccion=request.POST['direccion'],
+                    )
+
+                user.save()
+                profile.save()
+
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    'Usuario creado con éxito.'
+                    )
+                return redirect('auth:login')
+            except IntegrityError as ie:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    'Problemas al crear el usuario ERRO: {error}'.format(error=str(ie))
+                    )
+            except ValidationError as ve:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    'Problemas con la validación del formulario: {error}'.format(error=str(ve))
+                    )
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                'Problemas al crear el usuario'
+                )
+
+    template_name = 'register.html'
+    return render(request, template_name, data)
