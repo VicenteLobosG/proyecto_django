@@ -8,20 +8,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-<<<<<<< HEAD
-    path('', include('LogAuth.urls'))
-=======
     path('', include('LogAuth.urls')),
     path('app1/', include('app1.urls')),
-
->>>>>>> miguelrodriguez
-=======
-    path('', include('LogAuth.urls')),
-    path('app1/', include('app1.urls')),
-
->>>>>>> miguelrodriguez
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
