@@ -19,7 +19,7 @@ def home(request):
 		#se obtiene la q de donde esta parado
 
 		data['query']=request.GET.get('q')
-		question_list = Question.objects.filter(question_text__icontains=data['query'])
+		lista_productos = Producto.objects.filter(nombre_p__icontains=data['query'])
 
 	#caso normal
 	"""
@@ -44,6 +44,7 @@ def home(request):
 @login_required
 def articulos(request):
 	template_name = 'articulos.html'
+	data = {}
 	data['title'] = 'Articulos'
 	return render(request, template_name, data)
 
@@ -51,5 +52,6 @@ def articulos(request):
 @login_required
 def carrito(request):
 	template_name = 'carrito.html'
+	data = {}
 	data['title'] = 'Carrito'
 	return render(request, template_name, data)
