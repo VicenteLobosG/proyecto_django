@@ -25,7 +25,7 @@ def login(request):
             if user.is_active:
                 # user valid
                 auth.login(request, user)
-                return redirect('Venta')
+                return redirect('fiesta:home')
 
             else:
                 messages.add_message(

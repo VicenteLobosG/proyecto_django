@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import *
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
-<<<<<<< HEAD
-# Create your views here.
-=======
 @login_required
 def home(request):
 	template_name = 'home.html'
@@ -53,4 +55,3 @@ def carrito(request):
 	data = {}
 	data['title'] = 'Carrito'
 	return render(request, template_name, data)
->>>>>>> acb27ce7fa1f8b24c3ec6d86fdd2cab1240352f8
