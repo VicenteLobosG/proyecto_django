@@ -19,7 +19,26 @@
     font-size: 50px;
   }
 
+
+
 </style>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+</style>
+
 {% endblock %}
 
 {% block content %}
@@ -47,28 +66,27 @@
       
       
 {% block content_body %}
-  
-  <table class="table table-striped table-hover mt-5">
-      <thead>
-        <tr>
-          <th >Nombre del Producto</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-      {% for producto in productos %}
-      <tr>
-        <td>{{producto.nombre_p}}</td>
-        <td>{{producto.precio}}</td>
-        <td><img src="{{producto.foto.url}}" alt="{{producto.nombre_p}}" style="width:150px;"></td>
-        <td>
-          <i class="fas fa-cart-plus color_success"></i></a>
-        </td>
-      </tr>
-      {% endfor %}
-      </tbody>
 
-    </table>
+  
+ <div class="row">
+{% for producto in productos %}
+ 
+    <div class="col-sm-3">
+      <div class="card mb-4 mr-1 text-center" style="width: 12rem;">
+        <img src="{{producto.foto.url}}" class="card-img-center"  alt="{{producto.nombre_p}}" style="width:150px; height:150px;">
+        <div class="card-body">
+          <h5 class="card-title">{{producto.nombre_p}}</h5>
+          <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
+          <a href="#" ><i class="fas fa-cart-plus color_success"></i></a>
+        </div>
+      </div>
+    </div>
+
+
+
+{% endfor %}
+
+</div>
 
 {% endblock %}
 {% endblock %}
