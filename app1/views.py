@@ -47,6 +47,11 @@ def articulos(request):
 	template_name = 'articulos.html'
 	data = {}
 	data['title'] = 'Articulos'
+	data['productos'] = Producto.objects.all()
+	
+		
+
+
 	return render(request, template_name, data)
 
 

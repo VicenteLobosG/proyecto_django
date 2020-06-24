@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block title %} Articulos {% endblock %}
 
@@ -14,6 +14,11 @@
     color: #F3111F;
     font-size: 22px;
   }
+  .color_success{
+    color: #9ACD32;
+    font-size: 50px;
+  }
+
 </style>
 {% endblock %}
 
@@ -42,7 +47,28 @@
       
       
 {% block content_body %}
+  
+  <table class="table table-striped table-hover mt-5">
+      <thead>
+        <tr>
+          <th >Nombre del Producto</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      {% for producto in productos %}
+      <tr>
+        <td>{{producto.nombre_p}}</td>
+        <td>{{producto.precio}}</td>
+        <td><img src="{{producto.foto.url}}" alt="{{producto.nombre_p}}" style="width:150px;"></td>
+        <td>
+          <i class="fas fa-cart-plus color_success"></i></a>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
 
+    </table>
 
 {% endblock %}
 {% endblock %}
