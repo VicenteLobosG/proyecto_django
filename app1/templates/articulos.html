@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block title %} Articulos {% endblock %}
 
@@ -14,7 +14,40 @@
     color: #F3111F;
     font-size: 22px;
   }
+  .color_success{
+    color: #9ACD32;
+    font-size: 50px;
+  }
+
+
+.card-img-top{
+  margin:10px auto;
+  display:block;
+
+}
+
+
 </style>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+
+
+
+</style>
+
 {% endblock %}
 
 {% block content %}
@@ -43,6 +76,29 @@
       
 {% block content_body %}
 
+
+
+
+  
+ <div class="row">
+{% for producto in productos %}
+
+    <div class="col-sm-3">
+      <div class="card text-white bg-dark mb-3 mr-1 text-center" style="width: 12rem;">
+        <img src="{{producto.foto.url}}" class="card-img-top"  alt="{{producto.nombre_p}}" style="width:150px; height:150px;">
+        <div class="card-body">
+          <h5 class="card-title">{{producto.nombre_p}}</h5>
+          <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
+          <a href="#" ><i class="fas fa-cart-plus color_success"></i></a>
+        </div>
+      </div>
+  </div>
+
+
+
+{% endfor %}
+
+</div>
 
 {% endblock %}
 {% endblock %}
