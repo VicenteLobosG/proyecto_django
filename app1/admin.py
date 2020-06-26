@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import Producto, DetalleVenta, Venta, Inventario, Carrito
+from app1.models import Producto, OrdenCompra, Venta, Inventario, Carrito
 # Register your models here.
 
 
@@ -8,8 +8,8 @@ class ProductoAdmin(admin.ModelAdmin):
 	pass
 
 
-@admin.register(DetalleVenta)
-class DetalleVentaAdmin(admin.ModelAdmin):
+@admin.register(OrdenCompra)
+class OrdenCompraAdmin(admin.ModelAdmin):
 	pass
 
 @admin.register(Venta)

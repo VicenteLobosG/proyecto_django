@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 
-{% block title %} Carrito {% endblock %}
+{% block title %} {{title}} {% endblock %}
 
 
 {% block extra_css %}
@@ -14,7 +14,21 @@
     color: #F3111F;
     font-size: 22px;
   }
-</style>
+  table {
+    width:100%;
+  }
+  td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+  th {
+    background-color:#353a40;
+    color:#e9e5ee;
+    text-align: center;
+    padding: 8px;
+  }
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +58,45 @@
       
       
 {% block content_body %}
-
+<div class="container">
+  <table>
+    <tr>
+      <th>Foto del producto</th>
+      <th>Nombre del producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+    </tr>
+    {% for product in carrito.orden.all %}
+    <tr>
+      <td><img src="{{product.producto.foto.url}}" class="card-img-top"  alt="{{product.producto.nombre_p}}" style="width:75px; height:75px;"></td>
+      <td>{{product.producto.nombre_p}}</td>
+      <td>{{product.cantidad_producto}}</td>
+      <td>{{product.producto.precio}}</td>
+    </tr>
+  {% endfor %}
+    <tr>
+      <td style="background-color:#dddddd;"></td>
+      <td style="background-color:#dddddd;"></td>
+      <td style="background-color:#dddddd;"><b>Total</b></td>
+      <td style="background-color:#dddddd;">{{total}}</td>
+    </tr>
+  </table>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-2">
+      <a href="{% url 'fiesta:articulos' %}" class="btn btn-primary">Seguir Comprando</a>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-2">
+      <a href="{% url 'fiesta:comprar' carrito.pk %}" class="btn btn-success">Terminar Compra</a>
+    </div>
+    <div class="col-2">
+  </div>
+</div>      
 
 {% endblock %}
 {% endblock %}
