@@ -20,6 +20,12 @@
   }
 
 
+.card-img-top{
+  margin:10px auto;
+  display:block;
+
+}
+
 
 </style>
 
@@ -37,6 +43,9 @@
   flex: 33.33%;
   padding: 5px;
 }
+
+
+
 </style>
 
 {% endblock %}
@@ -67,20 +76,23 @@
       
 {% block content_body %}
 
+
+
+
   
  <div class="row">
 {% for producto in productos %}
- 
+
     <div class="col-sm-3">
-      <div class="card mb-4 mr-1 text-center" style="width: 12rem;">
-        <img src="{{producto.foto.url}}" class="card-img-center"  alt="{{producto.nombre_p}}" style="width:150px; height:150px;">
+      <div class="card text-white bg-dark mb-3 mr-1 text-center" style="width: 12rem;">
+        <img src="{{producto.foto.url}}" class="card-img-top"  alt="{{producto.nombre_p}}" style="width:150px; height:150px;">
         <div class="card-body">
           <h5 class="card-title">{{producto.nombre_p}}</h5>
           <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
           <a href="#" ><i class="fas fa-cart-plus color_success"></i></a>
         </div>
       </div>
-    </div>
+  </div>
 
 
 
