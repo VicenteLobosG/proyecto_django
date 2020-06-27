@@ -19,15 +19,46 @@
 
           <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav mr-auto">
+
+
               <li>
                 <a class="nav-link" href="{% url 'fiesta:home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'fiesta:articulos' %}">Articulos</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'fiesta:carrito' %}">Carrito</a>
+
+
+
+              <li class="nav-item dropdown">
+                <img src="{% static 'images/carrito.png' %}" alt="img carrito" id="logo" style="max-width:60px;" class="nav-link dropdown-toggle img-fluid" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                  <table id="lista-carrito" class="table">
+                      <thead>
+                          <tr>
+                              <th>Imagen</th>
+                              <th>Nombre</th>
+                              <th>Cantidad</th>
+                              <th>Precio</th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  </table>
+
+                  <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                  <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                      Compra</a>
+                </div>
+
+
+
+
+
+                <a class="nav-link" href="{% url 'fiesta:carrito' %}"></a>
               </li>
+
+
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Chantar algo</a>
               </li>
