@@ -12,11 +12,11 @@
   }
   .color_delete{
     color: #F3111F;
-    font-size: 22px;
+    font-size: 40px;
   }
   .color_success{
     color: #9ACD32;
-    font-size: 50px;
+    font-size: 40px;
   }
 
 
@@ -89,7 +89,8 @@
         <div class="card-body">
           <h5 class="card-title">{{producto.nombre_p}}</h5>
           <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
-          <a href="#" ><i class="fas fa-cart-plus color_success"></i></a>
+          <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-plus color_success"></i></a>
+          <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-arrow-down color_delete"></i></a>
         </div>
       </div>
   </div>

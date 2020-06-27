@@ -49,11 +49,52 @@ def articulos(request):
 	data = {}
 	data['title'] = 'Articulos'
 	data['productos'] = Producto.objects.all()
-	
-		
 
 
 	return render(request, template_name, data)
+
+
+"""
+class Carrito(models.Model):
+	orden = models.ManyToManyField(OrdenCompra, null=True, blank=True) ---
+	profile = models.ForeignKey(Profile, on_delete=models.CASCADE) --- lo tengo
+	venta = models.ForeignKey(Venta, on_delete=models.CASCADE, null=True, blank=True) --- crear
+	activo = models.BooleanField(default=True) --- lo tengo
+
+"""
+
+@login_required
+def addproducto(request, producto_id):
+	template_name = 'home.html' #cambiar esta wea
+	#venta = Venta.objects.create(hora_venta=datetime.now(),) cuando el usuario apreta 
+	#procesar la compra, ahi deberia guardar este dato con el total de la venta
+	data = {}
+	data['productos'] = Producto.objects.all()
+
+	for producto in data['productos']:
+		if producto.id == producto_id:
+			#la cantidad
+			
+			data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+			
+
+
+			if data['carrito'].orden.all().exists():
+				for x in data['carrito'].orden.all():
+					if x.producto.id == producto_id:
+						OrdenCompra.objects.get(id=x.producto.id).update(cantidad_producto=cantidad_producto+1)
+					else:
+						print("#################1")
+						orden_compra = OrdenCompra.objects.create(producto=producto)
+						data['carrito'].orden.add(orden_compra)
+			else:
+				print("#################3")
+				orden_compra = OrdenCompra.objects.create(producto=producto)
+				data['carrito'].orden.add(orden_compra)
+
+
+
+	return render(request, template_name)
 
 
 @login_required
@@ -73,6 +114,7 @@ def carrito(request):
 		template_name = 'carrito.html'
 
 	return render(request, template_name, data)
+
 
 @login_required
 def comprar(request, pk):
