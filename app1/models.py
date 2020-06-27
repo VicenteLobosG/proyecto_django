@@ -17,16 +17,17 @@ class Inventario(models.Model):
 
 
 class Venta(models.Model):
-	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
 	hora_venta = models.DateTimeField('hora venta')
+	total = models.IntegerField(default=0)
 
 
-class DetalleVenta(models.Model):
+class OrdenCompra(models.Model):
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-	venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
 	cantidad_producto = models.IntegerField(default=1)
 
 class Carrito(models.Model):
-	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+	orden = models.ManyToManyField(OrdenCompra, null=True, blank=True)
 	profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+	venta = models.ForeignKey(Venta, on_delete=models.CASCADE, null=True, blank=True)
+	activo = models.BooleanField(default=True)
 
