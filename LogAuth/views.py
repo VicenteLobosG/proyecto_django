@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.models import User
 from LogAuth.models import Profile
+from app1.models import Carrito
 from LogAuth.forms import UserForm
 from django.db import IntegrityError
 
@@ -69,9 +70,15 @@ def register(request):
                     comuna=request.POST['comuna'],
                     direccion=request.POST['direccion'],
                     )
+                carrito_nuevo = Carrito.objects.create(
+                    profile=profile,
+                    activo=True,
+                    )
 
                 user.save()
                 profile.save()
+                carrito_nuevo.save()
+
 
                 messages.add_message(
                     request,
