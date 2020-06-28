@@ -76,7 +76,7 @@ def addproducto(request, producto_id):
 
 
 
-
+	#OC tiene todas las ordenes con el producto seleccionado
 	OC = data['carrito'].orden.all().filter(producto__id=producto_id).exists()
 	print(OC)
 
@@ -90,7 +90,8 @@ def addproducto(request, producto_id):
 		if OC == True: #Si existen ordenes que tengan productos con esa ID
 			
 
-			var = OrdenCompra.objects.get(producto__id=producto_id)
+			var = data['carrito'].orden.get(producto__id=producto_id)
+			print(var)
 			var.cantidad_producto = var.cantidad_producto+1
 
 
@@ -100,10 +101,11 @@ def addproducto(request, producto_id):
 			var.save()
 			print("###################7")
 
-		else:
+		else: #Si no existen ordenes que tengan productos con esa ID
 			P_ins = Producto.objects.get(id=producto_id)
 								
 			orden_compra = OrdenCompra.objects.create(producto=P_ins)
+			OrdenCompra.objects.filter(id=orden_compra.id).update(total=P_ins.precio)
 			data['carrito'].orden.add(orden_compra)
 			print("#################5")
 
@@ -111,6 +113,8 @@ def addproducto(request, producto_id):
 		P_ins = Producto.objects.get(id=producto_id)
 								
 		orden_compra = OrdenCompra.objects.create(producto=P_ins)
+		OrdenCompra.objects.filter(id=orden_compra.id).update(total=P_ins.precio)
+		print(orden_compra.id)
 		data['carrito'].orden.add(orden_compra)
 		print("#################1")
 
