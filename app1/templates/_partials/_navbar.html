@@ -1,4 +1,5 @@
 {% load static %}	
+
   
   <nav class="navbar navbar-dark bg-dark-primary">
     <div class="container">
@@ -43,8 +44,15 @@
                           </tr>
                       </thead>
                       <tbody>
-                                                
-
+                        {% for ordencompra in OC %}
+                          <tr>
+                              <td>{{ordencompra.producto.nombre_p}}</td>
+                              <td>{{ordencompra.producto.nombre_p}}</td>
+                              <td>{{ordencompra.cantidad_producto}}</td>
+                              <td>{{ordencompra.producto.precio}}</td>
+                          </tr>
+                        {% endfor %}
+                           
                       </tbody>
                   </table>
 

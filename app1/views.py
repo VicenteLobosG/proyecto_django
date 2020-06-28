@@ -65,36 +65,56 @@ class Carrito(models.Model):
 
 @login_required
 def addproducto(request, producto_id):
-	template_name = 'home.html' #cambiar esta wea
+	template_name = 'articulos.html' #cambiar esta wea
 	#venta = Venta.objects.create(hora_venta=datetime.now(),) cuando el usuario apreta 
 	#procesar la compra, ahi deberia guardar este dato con el total de la venta
 	data = {}
 	data['productos'] = Producto.objects.all()
 
-	for producto in data['productos']:
-		if producto.id == producto_id:
-			#la cantidad
 			
-			data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+
+
+
+
+	OC = data['carrito'].orden.all().filter(producto__id=producto_id).exists()
+	print(OC)
+
+	varlo = data['carrito'].orden.all().exists()
+
+
+	print(varlo)
+
+	if varlo == True:
+
+		if OC == True:
 			
 
+			var = OrdenCompra.objects.get(id=producto_id)
 
-			if data['carrito'].orden.all().exists():
-				for x in data['carrito'].orden.all():
-					if x.producto.id == producto_id:
-						OrdenCompra.objects.get(id=x.producto.id).update(cantidad_producto=cantidad_producto+1)
-					else:
-						print("#################1")
-						orden_compra = OrdenCompra.objects.create(producto=producto)
-						data['carrito'].orden.add(orden_compra)
-			else:
-				print("#################3")
-				orden_compra = OrdenCompra.objects.create(producto=producto)
-				data['carrito'].orden.add(orden_compra)
+			var.cantidad_producto = var.cantidad_producto+1
+
+			var.save()
+			print("###################7")
+
+		else:
+			P_ins = Producto.objects.get(id=producto_id)
+								
+			orden_compra = OrdenCompra.objects.create(producto=P_ins)
+			data['carrito'].orden.add(orden_compra)
+			print("#################5")
+
+	else:
+		P_ins = Producto.objects.get(id=producto_id)
+								
+		orden_compra = OrdenCompra.objects.create(producto=P_ins)
+		data['carrito'].orden.add(orden_compra)
+		print("#################1")
 
 
 
-	return render(request, template_name)
+	data['carrotemp'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+	return render(request, template_name, data)
 
 
 @login_required
