@@ -46,7 +46,7 @@
                       <tbody>
                         {% for ordencompra in OC %}
                           <tr>
-                              <td>{{ordencompra.producto.nombre_p}}</td>
+                              <td><img src="{{ordencompra.producto.foto.url}}" alt="{{producto.nombre_p}}" style="width:30px; height:30px;"></td>
                               <td>{{ordencompra.producto.nombre_p}}</td>
                               <td>{{ordencompra.cantidad_producto}}</td>
                               <td>{{ordencompra.total}}</td>
