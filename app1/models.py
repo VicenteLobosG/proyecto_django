@@ -24,6 +24,7 @@ class Venta(models.Model):
 class OrdenCompra(models.Model):
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
 	cantidad_producto = models.IntegerField(default=1)
+	total = models.IntegerField(default=1)
 
 class Carrito(models.Model):
 	orden = models.ManyToManyField(OrdenCompra, null=True, blank=True)

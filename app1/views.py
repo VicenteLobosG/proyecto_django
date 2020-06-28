@@ -85,14 +85,17 @@ def addproducto(request, producto_id):
 
 	print(varlo)
 
-	if varlo == True:
+	if varlo == True: #Si existen ordenes de compra para el carrito
 
-		if OC == True:
+		if OC == True: #Si existen ordenes que tengan productos con esa ID
 			
 
-			var = OrdenCompra.objects.get(id=producto_id)
-
+			var = OrdenCompra.objects.get(producto__id=producto_id)
 			var.cantidad_producto = var.cantidad_producto+1
+
+
+			product = Producto.objects.get(id=producto_id)
+			var.total = product.precio * var.cantidad_producto
 
 			var.save()
 			print("###################7")
