@@ -22,4 +22,4 @@ class InventarioAdmin(admin.ModelAdmin):
 
 @admin.register(Carrito)
 class CarritoAdmin(admin.ModelAdmin):
-	pass
+	readonly_fields = ('pk',)

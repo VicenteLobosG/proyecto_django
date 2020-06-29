@@ -52,13 +52,15 @@
                               <td>{{ordencompra.total}}</td>
                           </tr>
                         {% endfor %}
+
+                        esta es la pk del carrito
+                        {{carrito.pk}}
                            
                       </tbody>
                   </table>
 
-                  <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
-                  <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
-                      Compra</a>
+                  <a href="#" id="vaciar-carrito" class="btn btn-danger btn-block">Vaciar Carrito</a>
+                  <a href="{% url 'fiesta:comprar' %}" class="btn btn-success btn-block">Terminar Compra</a>
                 </div>
 
 

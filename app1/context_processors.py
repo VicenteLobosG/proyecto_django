@@ -21,6 +21,7 @@ def carritoglobal(request):
 			OC = var['carrito'].orden.all()
 			data = {
 			        	'OC': OC,
+			        	'carrito' : var
 			        }
 			return data
 

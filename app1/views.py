@@ -144,10 +144,10 @@ def carrito(request):
 
 
 @login_required
-def comprar(request, pk):
+def comprar(request):
 
 	data = {}
-	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True, pk=pk)
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
 	data['inventario'] = Inventario.objects.all()
 	total = 0
 
