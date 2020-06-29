@@ -49,10 +49,78 @@ def articulos(request):
 	data = {}
 	data['title'] = 'Articulos'
 	data['productos'] = Producto.objects.all()
-	
-		
 
 
+	return render(request, template_name, data)
+
+
+"""
+class Carrito(models.Model):
+	orden = models.ManyToManyField(OrdenCompra, null=True, blank=True) ---
+	profile = models.ForeignKey(Profile, on_delete=models.CASCADE) --- lo tengo
+	venta = models.ForeignKey(Venta, on_delete=models.CASCADE, null=True, blank=True) --- crear
+	activo = models.BooleanField(default=True) --- lo tengo
+
+"""
+
+@login_required
+def addproducto(request, producto_id):
+	template_name = 'articulos.html' #cambiar esta wea
+	#venta = Venta.objects.create(hora_venta=datetime.now(),) cuando el usuario apreta 
+	#procesar la compra, ahi deberia guardar este dato con el total de la venta
+	data = {}
+	data['productos'] = Producto.objects.all()
+
+			
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+
+
+
+	#OC tiene todas las ordenes con el producto seleccionado
+	OC = data['carrito'].orden.all().filter(producto__id=producto_id).exists()
+	print(OC)
+
+	varlo = data['carrito'].orden.all().exists()
+
+
+	print(varlo)
+
+	if varlo == True: #Si existen ordenes de compra para el carrito
+
+		if OC == True: #Si existen ordenes que tengan productos con esa ID
+			
+
+			var = data['carrito'].orden.get(producto__id=producto_id)
+			print(var)
+			var.cantidad_producto = var.cantidad_producto+1
+
+
+			product = Producto.objects.get(id=producto_id)
+			var.total = product.precio * var.cantidad_producto
+
+			var.save()
+			print("###################7")
+
+		else: #Si no existen ordenes que tengan productos con esa ID
+			P_ins = Producto.objects.get(id=producto_id)
+								
+			orden_compra = OrdenCompra.objects.create(producto=P_ins)
+			OrdenCompra.objects.filter(id=orden_compra.id).update(total=P_ins.precio)
+			data['carrito'].orden.add(orden_compra)
+			print("#################5")
+
+	else:
+		P_ins = Producto.objects.get(id=producto_id)
+								
+		orden_compra = OrdenCompra.objects.create(producto=P_ins)
+		OrdenCompra.objects.filter(id=orden_compra.id).update(total=P_ins.precio)
+		print(orden_compra.id)
+		data['carrito'].orden.add(orden_compra)
+		print("#################1")
+
+
+
+	data['carrotemp'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
 	return render(request, template_name, data)
 
 
@@ -73,6 +141,7 @@ def carrito(request):
 		template_name = 'carrito.html'
 
 	return render(request, template_name, data)
+
 
 @login_required
 def comprar(request, pk):
@@ -113,5 +182,17 @@ def comprar(request, pk):
 		)
 
 	carrito_nuevo.save()
+
+	return redirect('fiesta:home')
+
+
+
+def vaciar(request):
+
+	data = {}
+	
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+	data['carrito'].orden.all().delete()
+	print(data['carrito'].orden)
 
 	return redirect('fiesta:home')

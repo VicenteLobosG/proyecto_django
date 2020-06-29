@@ -5,7 +5,7 @@ from app1.models import Producto, OrdenCompra, Venta, Inventario, Carrito
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-	pass
+	readonly_fields = ('id',)
 
 
 @admin.register(OrdenCompra)
@@ -22,4 +22,4 @@ class InventarioAdmin(admin.ModelAdmin):
 
 @admin.register(Carrito)
 class CarritoAdmin(admin.ModelAdmin):
-	pass
+	readonly_fields = ('pk',)

@@ -1,4 +1,5 @@
 {% load static %}	
+
   
   <nav class="navbar navbar-dark bg-dark-primary">
     <div class="container">
@@ -19,15 +20,58 @@
 
           <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav mr-auto">
+
+
               <li>
                 <a class="nav-link" href="{% url 'fiesta:home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'fiesta:articulos' %}">Articulos</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'fiesta:carrito' %}">Carrito</a>
+
+
+
+              <li class="nav-item dropdown">
+                <img src="{% static 'images/carrito.png' %}" alt="img carrito" id="logo" style="max-width:60px;" class="nav-link dropdown-toggle img-fluid" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                  <table id="lista-carrito" class="table">
+                      <thead>
+                          <tr>
+                              <th>Imagen</th>
+                              <th>Nombre</th>
+                              <th>Cantidad</th>
+                              <th>Precio</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for ordencompra in OC %}
+                          <tr>
+                              <td><img src="{{ordencompra.producto.foto.url}}" alt="{{producto.nombre_p}}" style="width:30px; height:30px;"></td>
+                              <td>{{ordencompra.producto.nombre_p}}</td>
+                              <td>{{ordencompra.cantidad_producto}}</td>
+                              <td>{{ordencompra.total}}</td>
+                          </tr>
+                        {% endfor %}
+
+                        esta es la pk del carrito
+                        {{carrito.pk}}
+                           
+                      </tbody>
+                  </table>
+
+                  <a href="{% url 'fiesta:vaciar' %}" class="btn btn-danger btn-block">Vaciar Carrito</a>
+                  <a href="{% url 'fiesta:carrito' %}" class="btn btn-success btn-block">Terminar Compra</a>
+                </div>
+
+
+
+
+
+                <a class="nav-link" href="{% url 'fiesta:carrito' %}"></a>
               </li>
+
+
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Chantar algo</a>
               </li>
