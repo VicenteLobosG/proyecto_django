@@ -144,10 +144,10 @@ def carrito(request):
 
 
 @login_required
-def comprar(request):
+def comprar(request, pk):
 
 	data = {}
-	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True, pk=pk)
 	data['inventario'] = Inventario.objects.all()
 	total = 0
 
@@ -182,5 +182,17 @@ def comprar(request):
 		)
 
 	carrito_nuevo.save()
+
+	return redirect('fiesta:home')
+
+
+
+def vaciar(request):
+
+	data = {}
+	
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+	data['carrito'].orden.all().delete()
+	print(data['carrito'].orden)
 
 	return redirect('fiesta:home')
