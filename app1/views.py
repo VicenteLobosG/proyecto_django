@@ -188,7 +188,7 @@ def comprar(request, pk):
 
 
 def vaciar(request):
-
+	
 	data = {}
 	
 	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
@@ -196,3 +196,21 @@ def vaciar(request):
 	print(data['carrito'].orden)
 
 	return redirect('fiesta:home')
+
+def compras(request):
+	template_name = 'compras.html'
+	data = {}
+
+	data['carritos'] = Carrito.objects.all().filter(profile__exact=request.user.profile)
+
+
+	for x in data['carritos']:
+		data['var_orden'] = x.orden.all()
+		print(x.venta)
+		print("aqui estoy ##########")
+		data['venta_venta'] = x.venta
+
+	
+
+	return render(request, template_name, data)
+	#ventas = Venta.objects.all().filter(carrito=request.user.profile.carrito.id)

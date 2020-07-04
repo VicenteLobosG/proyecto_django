@@ -53,8 +53,6 @@
                           </tr>
                         {% endfor %}
 
-                        esta es la pk del carrito
-                        {{carrito.pk}}
                            
                       </tbody>
                   </table>
@@ -73,7 +71,7 @@
 
 
               <li class="nav-item">
-                <a class="nav-link" href="#">Chantar algo</a>
+                <a class="nav-link" href="{% url 'fiesta:compras' %}">Compras</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'fiesta:home' %}">
