@@ -76,7 +76,17 @@
       
 {% block content_body %}
 
-
+{% if messages %}
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" href="{% url 'fiesta:articulos'%}" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  
+      {% endfor %}
+  {% endif %}
 
 
   
@@ -90,7 +100,7 @@
           <h5 class="card-title">{{producto.nombre_p}}</h5>
           <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
           <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-plus color_success"></i></a>
-          <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-arrow-down color_delete"></i></a>
+          <a href="{% url 'fiesta:quitarproducto' producto.id %}"><i class="fas fa-cart-arrow-down color_delete"></i></a>
         </div>
       </div>
   </div>

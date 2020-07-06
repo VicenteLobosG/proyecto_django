@@ -124,6 +124,51 @@ def addproducto(request, producto_id):
 	return render(request, template_name, data)
 
 
+def quitarproducto(request, producto_id):
+
+	data = {}
+	
+
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+
+	varlo = data['carrito'].orden.all().exists() #todas las ordenes de compra del carrito
+
+	#OC tiene todas las ordenes con el producto seleccionado
+	OC = data['carrito'].orden.all().filter(producto__id=producto_id).exists()
+
+	if varlo == True:
+		if OC == True:
+
+			var = data['carrito'].orden.get(producto__id=producto_id)
+			
+			if var.cantidad_producto == 1:
+				OrdenCompra.objects.filter(producto__id=producto_id).delete()
+				print("##################HOLA")
+
+			if var.cantidad_producto > 1:
+				
+				var.cantidad_producto = var.cantidad_producto - 1
+				product = Producto.objects.get(id=producto_id)
+				var.total = product.precio * var.cantidad_producto
+				var.save()
+
+		else:
+			messages.add_message(
+                request,
+                messages.ERROR,
+                'No puede quitar este producto!.'
+                )
+	else:
+		messages.add_message(
+            request,
+            messages.ERROR,
+            'No puede quitar este producto!.'
+            )
+
+
+	return redirect('fiesta:articulos')
+
+
 @login_required
 def carrito(request):
 	template_name = 'carrito.html'
@@ -202,15 +247,24 @@ def compras(request):
 	data = {}
 
 	data['carritos'] = Carrito.objects.all().filter(profile__exact=request.user.profile)
+	exc = Carrito.objects.get(profile__exact=request.user.profile, venta=None)
+	
+
 
 
 	for x in data['carritos']:
+		print("----------------")
+		print(x)
+		print(exc)
+		if x == exc:
+			pass
+		else:
+			data['carrito_final'] = x
+			
+
 		data['var_orden'] = x.orden.all()
-		print(x.venta)
-		print("aqui estoy ##########")
 		data['venta_venta'] = x.venta
 
-	
-
+		
 	return render(request, template_name, data)
 	#ventas = Venta.objects.all().filter(carrito=request.user.profile.carrito.id)
