@@ -100,22 +100,14 @@
           <h5 class="card-title">{{producto.nombre_p}}</h5>
           <p class="card-text"><strong>Precio: ${{producto.precio}}CLP</strong></p>
 
-          {% if perms.LogAuth.is_cliente %}
-            <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-plus color_success"></i></a>
-          {% endif %}
-
-          {% if perms.LogAuth.is_cliente %}
-            <a href="{% url 'fiesta:quitarproducto' producto.id %}"><i class="fas fa-cart-arrow-down color_delete"></i></a>
-          {% endif %}
-
           {% if perms.LogAuth.is_admin %}
             <a href="{% url 'fiesta:update' producto.id %}"><i class="fas fa-edit color_update"></i></a>
-          {% endif %}
-
-          {% if perms.LogAuth.is_admin %}
             <a href="{% url 'fiesta:delete' producto.id %}"><i class="fas fa-trash color_delete"></i></a>
-          {% endif %}
 
+          {% elif perms.LogAuth.is_cliente %}
+            <a href="{% url 'fiesta:addproducto' producto.id %}"><i class="fas fa-cart-plus color_success"></i></a>
+            <a href="{% url 'fiesta:quitarproducto' producto.id %}"><i class="fas fa-cart-arrow-down color_delete"></i></a>
+          {% endif %}
         </div>
       </div>
   </div>

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from LogAuth.models import Profile
 from app1.models import Carrito
 from LogAuth.forms import UserForm
 from django.db import IntegrityError
+
 
 # Create your views here.
 def login(request):
@@ -75,10 +76,12 @@ def register(request):
                     activo=True,
                     )
 
+                permission = Permission.objects.get(codename='is_cliente')
+                user.user_permissions.add(permission)
+
                 user.save()
                 profile.save()
                 carrito_nuevo.save()
-
 
                 messages.add_message(
                     request,
