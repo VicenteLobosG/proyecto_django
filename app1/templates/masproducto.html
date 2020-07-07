@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+Agregar Producto
+{% endblock %}
+
+{% block content_head %}
+    <h2>Agregar Producto</h2>
+{% endblock %}
+
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'fiesta:home'%}">Home</a></li>
+<li class="breadcrumb-item active" aria-current="page">Agregar Producto</li>
+{% endblock %}
+
+
+{% block content_body %}
+
+
+    {% bootstrap_messages %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+           
+      {% bootstrap_form form %}
+
+      {% buttons %}
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i class="fas fa-save"></i> Guardar Producto
+        </button>
+      {% endbuttons %}
+
+
+    </form>
+
+
+{% endblock %}

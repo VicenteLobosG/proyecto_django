@@ -1,35 +1,38 @@
 from .models import Carrito
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 
 
-
-"""class Carrito(models.Model):
-	orden = models.ManyToManyField(OrdenCompra, null=True, blank=True)
-	profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-	venta = models.ForeignKey(Venta, on_delete=models.CASCADE, null=True, blank=True)
-	activo = models.BooleanField(default=True)"""
 
 def carritoglobal(request):
 	#var = {}
 
 	data = {}
-
+	
+	return {}
+	
 	if request.user.is_authenticated:
-		if request.user.is_superuser == False:
-			print("########################################################")
-			var = {}
-			var['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
-			OC = var['carrito'].orden.all()
-			data = {
-			        	'OC': OC,
-			        	'carrito' : var
-			        }
-			return data
 
+	
+		if request.user.has_perm('LogAuth.is_cliente'):
+
+
+			if request.user.is_superuser == False:
+				print("########################################################")
+				var = {}
+				var['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+				OC = var['carrito'].orden.all()
+				data = {
+				        	'OC': OC,
+				        	'carrito' : var
+				        }
+				return data
+
+			else:
+				return {}
 		else:
 			return {}
 	else:
 		return {}
+
 			#ES TERRIBLMENTE IMPORTANTE DEVOLVER UN DICCIONARIO VACIO, SI NO, CRASHEA TODO EL SISTEMA
 			##########################################################################################
-
-

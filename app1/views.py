@@ -5,14 +5,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 import datetime
+from app1.forms import ProductoForm
+
 
 
 @login_required
 def home(request):
 	template_name = 'home.html'
 	data = {}
-
 	data['title'] = 'Home'
+
+
 
 	#question_list = Question.objects.all()
 	data['query']=''
@@ -23,23 +26,7 @@ def home(request):
 		data['query']=request.GET.get('q')
 		lista_productos = Producto.objects.filter(nombre_p__icontains=data['query'])
 
-	#caso normal
-	"""
-	else:
-		#question_list = Question.objects.all()
-
-	paginator=Paginator(question_list, 4)
-	#la pagina viene aqui con los datos
-	page=request.GET.get('page',1)
-
-	try:
-		data['questions']=paginator.page(page)
-		print(data['questions'])
-	except PageNotAnInteger:
-		data['questions']=paginator.page(1)
-	except EmptyPage:
-		data['questions']=paginator.page(page.num_pages)
-	"""
+	
 	return render(request, template_name, data)
 
 
@@ -125,6 +112,52 @@ def addproducto(request, producto_id):
 
 
 @login_required
+def quitarproducto(request, producto_id):
+
+	data = {}
+	
+
+	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
+
+	varlo = data['carrito'].orden.all().exists() #todas las ordenes de compra del carrito
+
+	#OC tiene todas las ordenes con el producto seleccionado
+	OC = data['carrito'].orden.all().filter(producto__id=producto_id).exists()
+
+	if varlo == True:
+		if OC == True:
+
+			var = data['carrito'].orden.get(producto__id=producto_id)
+			
+			if var.cantidad_producto == 1:
+				OrdenCompra.objects.filter(producto__id=producto_id).delete()
+				print("##################HOLA")
+
+			if var.cantidad_producto > 1:
+				
+				var.cantidad_producto = var.cantidad_producto - 1
+				product = Producto.objects.get(id=producto_id)
+				var.total = product.precio * var.cantidad_producto
+				var.save()
+
+		else:
+			messages.add_message(
+                request,
+                messages.ERROR,
+                'No puede quitar este producto!.'
+                )
+	else:
+		messages.add_message(
+            request,
+            messages.ERROR,
+            'No puede quitar este producto!.'
+            )
+
+
+	return redirect('fiesta:articulos')
+
+
+@login_required
 def carrito(request):
 	template_name = 'carrito.html'
 	data = {}
@@ -187,8 +220,9 @@ def comprar(request, pk):
 
 
 
+@login_required
 def vaciar(request):
-
+	
 	data = {}
 	
 	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True)
@@ -196,3 +230,94 @@ def vaciar(request):
 	print(data['carrito'].orden)
 
 	return redirect('fiesta:home')
+
+
+@login_required
+def compras(request):
+	template_name = 'compras.html'
+	data = {}
+
+	data['carritos'] = Carrito.objects.all().filter(profile__exact=request.user.profile)
+	exc = Carrito.objects.get(profile__exact=request.user.profile, venta=None)
+	
+
+
+
+	for x in data['carritos']:
+		print("----------------")
+		print(x)
+		print(exc)
+		if x == exc:
+			pass
+		else:
+			data['carrito_final'] = x
+			
+
+		data['var_orden'] = x.orden.all()
+		data['venta_venta'] = x.venta
+
+
+		for i in data['var_orden']:
+			print(i.producto.fecha_exp)
+
+	
+		
+	return render(request, template_name, data)
+	#ventas = Venta.objects.all().filter(carrito=request.user.profile.carrito.id)
+
+
+@permission_required('app1.add_producto')
+def masproducto(request):
+	data = {}
+	template_name = 'masproducto.html'
+
+	if request.method == "POST":
+		data['form'] = ProductoForm(request.POST, request.FILES)
+
+		
+
+
+		if data['form'].is_valid():
+			data['form'].save()
+			messages.add_message(
+				request,
+				messages.SUCCESS,
+				'Producto ingresado!.')
+
+			return redirect('fiesta:home')
+
+	else:
+		data['form'] = ProductoForm(request.POST or None)
+
+
+	return render(request, template_name, data)
+
+
+
+@permission_required('app1.change_producto')
+def update(request, pk):
+    template_name = 'update.html'
+    data = {}
+
+    producto = Producto.objects.get(pk=pk)
+    data['form'] = ProductoForm(instance=producto, data=request.POST)
+
+    if data['form'].is_valid():
+        data['form'].save()
+        return redirect('fiesta:home')
+
+    return render(request, template_name, data)
+
+@permission_required('app1.delete_producto')
+def delete(request, pk):
+    data = {}
+    data['producto'] = Producto.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        data['producto'].delete()
+        return redirect('fiesta:home')
+
+    template_name = 'delete.html'
+
+
+    return render(request, template_name, data)

@@ -1,6 +1,11 @@
 {% load static %}
 <!doctype html>
 
+
+
+
+
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -16,6 +21,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     {% block extra_css %}
+    
     {% endblock %}
 
     <title>Mi Fiesta : {% block title %}Home{% endblock %}</title> <!-- dps en los demas html, se le pone segun corresponda el title -->
@@ -51,6 +57,7 @@
         
 
         {% block content_body %}
+
         {% endblock %}
 
     </div>
