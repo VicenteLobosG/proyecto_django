@@ -321,3 +321,12 @@ def delete(request, pk):
 
 
     return render(request, template_name, data)
+
+def read_compras(request):
+	data = {}
+
+	data['carritos'] = Carrito.objects.all()
+
+	template_name = 'read_compras.html'
+
+	return render(request, template_name, data)
