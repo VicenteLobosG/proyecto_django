@@ -107,3 +107,5 @@ def register(request):
 
     template_name = 'register.html'
     return render(request, template_name, data)
+
+

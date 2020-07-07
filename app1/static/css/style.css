@@ -42,10 +42,7 @@ color:black;
 	text-decoration: none;
 }
 
-.bg-dark-primary .container a:hover{
-	color:blue;
 
-}
 
 .carousel-item{
   width: 100%;
@@ -62,6 +59,3 @@ color:black;
     height: 280px;
   }
 
-body {
-  background-color: lightblue;
-}

@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
-{% block title %} Eliminar Preguntas{% endblock %}
+{% block title %} Eliminar Producto{% endblock %}
 
 
 
 {% block content_head %}
-	<h2>Borrar pregunta</h2>
+	<h2>Borrar Producto</h2>
 {% endblock %}
 
 {% block breadcrumb %}
-	<li class="breadcrumb-item"><a href="{% url 'polls:list' %}">Polls</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'fiesta:home' %}">Home</a></li>
 	
-	<li class="breadcrumb-item active" aria-current="page">Borrar Pregunta</li>
+	<li class="breadcrumb-item active" aria-current="page">Borrar Producto</li>
 
 {% endblock %}
 
 {% block content_body %}
 	
-	<p> Estas seguro de eliminar a <strong>{{question.question_text}}</strong>?</p>
+	<p> Estas seguro de eliminar las <strong>{{producto.nombre_p}}</strong>?</p>
 
 	<form class="" method="post">
 		{% csrf_token %}
 		
 		<input type="submit" name="" value="Eliminar" class="btn btn-danger">|
 
-		<a href="{% url 'polls:list' %}" class="btn btn-secondary">Cancelar
+		<a href="{% url 'fiesta:home' %}" class="btn btn-secondary">Cancelar
 		</a>
 
 	</form>
