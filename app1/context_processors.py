@@ -7,11 +7,10 @@ def carritoglobal(request):
 	#var = {}
 
 	data = {}
-	
-	return {}
-	
-	if request.user.is_authenticated:
+	print("#####################################sad###################")	
 
+	if request.user.is_authenticated:
+		print("#####################################sad###################")
 	
 		if request.user.has_perm('LogAuth.is_cliente'):
 

@@ -284,7 +284,7 @@ def masproducto(request):
 				messages.SUCCESS,
 				'Producto ingresado!.')
 
-			return redirect('fiesta:home')
+			return redirect('fiesta:articulos')
 
 	else:
 		data['form'] = ProductoForm(request.POST or None)
