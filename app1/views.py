@@ -328,7 +328,7 @@ def update(request, pk):
 
 
 
-
+@permission_required('app1.change_producto')
 def act_inventario(request, pk):
 
 	template_name = 'act_inventario.html'
@@ -367,7 +367,7 @@ def delete(request, pk):
 
     return render(request, template_name, data)
 
-
+@permission_required('app1.view_producto')
 def read_compras(request):
 	data = {}
 
