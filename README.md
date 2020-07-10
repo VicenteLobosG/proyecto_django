@@ -32,6 +32,8 @@ La aplicación tiene las siguientes dependencias
  Para instalar python dirigirse al siguiente sitio:
 
  [Python](https://www.python.org/downloads/)
+ 
+
 
 * Django = 3.0.7
 
@@ -41,6 +43,8 @@ La aplicación tiene las siguientes dependencias
  pip install django=3.0.7
  ```
 
+
+
 * Djago-Bootstrap4 = 2.0.1
 
  Para instalar django-bootstrap4 introducir la siguiente linea en la terminal
@@ -49,7 +53,7 @@ La aplicación tiene las siguientes dependencias
  pip install django-bootstrap4=2.0.1
  ```
 
-##Uso de la aplicación
+## Uso de la aplicación
 
 Para levantar el aplicativo web, abrir terminal en la carpeta raíz y escribir la siguiente linea:
 
