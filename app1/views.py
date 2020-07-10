@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 import datetime
-from app1.forms import ProductoForm
+from app1.forms import ProductoForm, InventarioForm
 
 
 
@@ -182,6 +182,8 @@ def comprar(request, pk):
 	data = {}
 	data['carrito'] = Carrito.objects.get(profile__exact=request.user.profile, activo=True, pk=pk)
 	data['inventario'] = Inventario.objects.all()
+	print(data['inventario'])
+	print("HEREIAM##############2###")
 	total = 0
 
 	###Restar inventario
@@ -189,7 +191,10 @@ def comprar(request, pk):
 	for  producto in data['carrito'].orden.all():
 		for inventario in data['inventario']:
 			if inventario.producto.nombre_p == producto.producto.nombre_p:
-				Inventario.objects.filter(producto=producto.producto).update(cantidad=inventario.cantidad-producto.cantidad_producto)
+				k = Inventario.objects.filter(producto=producto.producto).update(cantidad=inventario.cantidad-producto.cantidad_producto)
+				print(inventario.producto.nombre_p)
+				print(inventario.producto.cantidad)
+				print("HEREIAM#################")
 
 	###Creando la venta
 
@@ -273,10 +278,7 @@ def masproducto(request):
 
 	if request.method == "POST":
 		data['form'] = ProductoForm(request.POST, request.FILES)
-
-		
-
-
+	
 		if data['form'].is_valid():
 			data['form'].save()
 			messages.add_message(
@@ -284,10 +286,26 @@ def masproducto(request):
 				messages.SUCCESS,
 				'Producto ingresado!.')
 
+			nombre_producto = request.POST.get('nombre_p')
+			producto = Producto.objects.get(nombre_p=nombre_producto)
+
+
+
+			inventario = Inventario.objects.create(producto=producto, hora_act=datetime.datetime.now())
+			print("SUCCESS ALL")
+
+
+
+
 			return redirect('fiesta:articulos')
+
 
 	else:
 		data['form'] = ProductoForm(request.POST or None)
+
+
+
+
 
 
 	return render(request, template_name, data)
@@ -308,6 +326,33 @@ def update(request, pk):
 
     return render(request, template_name, data)
 
+
+
+
+def act_inventario(request, pk):
+
+	template_name = 'act_inventario.html'
+	data = {}
+
+	data['producto_nombre'] = Producto.objects.get(pk=pk)
+
+	inventario = Inventario.objects.get(producto__pk=pk)
+	data['form'] = InventarioForm(instance=inventario, data=request.POST)
+
+	if data['form'].is_valid():
+		data['form'].save()
+
+
+		y = Producto.objects.get(pk=pk)
+
+		inventario = Inventario.objects.filter(producto__id=y.id).update(hora_act=datetime.datetime.now())
+
+		return redirect('fiesta:home')
+		
+	return render(request, template_name, data)
+
+
+
 @permission_required('app1.delete_producto')
 def delete(request, pk):
     data = {}
@@ -322,6 +367,7 @@ def delete(request, pk):
 
     return render(request, template_name, data)
 
+
 def read_compras(request):
 	data = {}
 
@@ -330,3 +376,15 @@ def read_compras(request):
 	template_name = 'read_compras.html'
 
 	return render(request, template_name, data)
+
+@permission_required('app1.view_inventario')
+def read_inventario(request):
+	data = {}
+	template_name = 'inventario.html'
+
+	data['inventarios'] = Inventario.objects.all()
+
+	return render(request, template_name, data)
+
+
+

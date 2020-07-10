@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+
+{% block title %}
+Actualizar Inventario
+{% endblock %}
+
+{% block content_head %}
+ <h2>Editar Inventario </h2>
+{% endblock %}
+
+
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item"><a href="{% url 'fiesta:home'%}">Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'fiesta:read_inventario'%}">Inventario</a></li>
+	<li class="breadcrumb-item active" aria-current="page">Actualizar Inventario</li>
+{% endblock %}
+
+
+
+
+{% block content_body %}
+
+ <form class="" method="post">
+   {% csrf_token %}
+        
+   {% bootstrap_form form %}
+
+   {% buttons %}
+     <button type="submit" class="btn btn-primary btn-lg">
+       <i class="fas fa-edit"></i> Actualizar Inventario
+     </button>
+   {% endbuttons %}
+
+
+ </form>
+
+{% endblock %}

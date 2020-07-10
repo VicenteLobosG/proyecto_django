@@ -1,4 +1,5 @@
 from app1 import views
+
 from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
@@ -18,4 +19,6 @@ urlpatterns = [
     path('update/<int:pk>', views.update, name="update"),
     path('delete/<int:pk>', views.delete, name="delete"),
     path('read_compras', views.read_compras, name="read_compras"),
+    path('read_inventario', views.read_inventario, name="read_inventario"),
+    path('act_inventario/<int:pk>', views.act_inventario, name="act_inventario"),
 ]

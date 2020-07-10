@@ -1,6 +1,6 @@
 from django import forms
-from app1.models import Producto
-
+from app1.models import Producto, Inventario
+import datetime
 
 class ProductoForm(forms.ModelForm):
 	class Meta:
@@ -14,5 +14,16 @@ class ProductoForm(forms.ModelForm):
 		)
 
 
+
+
+class InventarioForm(forms.ModelForm):
+	class Meta:
+
+		hora_act = datetime.datetime.now()
+
+		model = Inventario
+		fields = (
+			'cantidad',
+		)
 
 

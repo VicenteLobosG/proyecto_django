@@ -41,10 +41,17 @@
                   <a class="nav-link" href="{% url 'fiesta:read_compras' %}">Compras clientes</a>
                 </li>
 
+              {% if perms.LogAuth.is_admin %}
+              	<li class="nav-item">
+                  <a class="nav-link" href="{% url 'fiesta:read_inventario' %}">Inventario</a>
+                </li>
+              {% endif %}
+
             {% elif perms.LogAuth.is_cliente %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'fiesta:compras' %}">Compras</a>
               </li>
+
 
               <li class="nav-item dropdown">
                   <img src="{% static 'images/carrito.png' %}" alt="img carrito" id="logo" style="max-width:60px;" class="nav-link dropdown-toggle img-fluid" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %} Inventario {% endblock %}
+
+{% block extra_css %}
+<style>
+
+  table {
+    width:100%;
+  }
+  td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+  th {
+    background-color:#353a40;
+    color:#e9e5ee;
+    text-align: center;
+    padding: 8px;
+  }
+
+
+  .color_update{
+    color: #FFBE33;
+    font-size: 40px;
+  }
+  </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+{% block content_head %}
+
+
+
+<!-- Bloque Titulo-->
+      <div class="row mt-2">
+        <div class="col-md-8 col-lg-10">
+          <h1> Inventario de Productos </h1>
+        </div>
+      </div>
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'fiesta:articulos'%}">Articulos</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Inventario</li>
+
+{% endblock %}
+
+
+{% block content_body %}
+
+	<div class="container">
+
+	{% for inventario in inventarios %}
+
+		  <table class="table table-striped table-hover">
+		    <tr>
+		      <th>Imagen</th>
+		      <th>Producto</th>
+		      <th>Cantidad</th>
+		      <th>Hora de Actualización</th>
+		      <th>Acción</th>
+		    </tr>
+		    <tr>
+		      <td><img src="{{inventario.producto.foto.url}}" alt="{{inventario.producto.nombre_p}}" style="width:75px; height:75px;"></td>
+		      <td>{{inventario.producto.nombre_p}}</td>
+		      <td>{{inventario.cantidad}}</td>
+		      <td>{{inventario.hora_act}}</td>
+		      <td><a href="{% url 'fiesta:act_inventario' inventario.producto.id %}"><i class="fas fa-edit color_update"></i></a></td>
+		    </tr>
+		  </table>
+
+	{% endfor %}
+
+	</div>
+
+
+
+
+
+
+{% endblock %}
+{% endblock %}

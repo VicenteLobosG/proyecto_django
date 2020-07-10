@@ -1,5 +1,6 @@
 from django.db import models
 from LogAuth.models import Profile
+from django.utils.timezone import now
 
 
 
@@ -10,10 +11,13 @@ class Producto(models.Model):
 	precio = models.IntegerField(default=1)
 	foto = models.ImageField(upload_to='fotos', blank=True, null=True)
 
+	def __str__(self):
+		return self.nombre_p
+
 class Inventario(models.Model):
 	producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
 	cantidad = models.IntegerField(default=0)
-	hora_act = models.DateTimeField('fecha de actualizacion')
+	hora_act = models.DateTimeField('fecha de actualizacion', default=now)
 
 
 class Venta(models.Model):
