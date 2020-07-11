@@ -1,6 +1,6 @@
 # Proyecto de curso
 
-Este proyecto está hecho a partir de la situación del bazar _"Mi Fiesta"_ ubicado en el centro de Rancagua al frente del instituto regional de educación. Para efectos del ramo las ventas fueron simuladas. El proyecto consiste en un sitio de ventas web, el cual cuenta con los siguientes módulos y funcionalidades:
+Este proyecto está hecho a partir de la situación del bazar _"Mi Fiesta"_ ubicado en el centro de Rancagua al frente del instituto regional de educación. Para efectos de la asignatura las ventas fueron simuladas. El proyecto consiste en un sitio de ventas web, el cual cuenta con los siguientes módulos y funcionalidades:
 
 * Sistema de Usuario
    * Login
@@ -16,8 +16,8 @@ Este proyecto está hecho a partir de la situación del bazar _"Mi Fiesta"_ ubic
    * Ver compras realizadas
 
 * Admin
-   * Agregar produto
-   * Eliminar produto
+   * Agregar producto
+   * Eliminar producto
    * Editar producto
    * Ver productos
    * Actualizar inventario
@@ -45,7 +45,7 @@ La aplicación tiene las siguientes dependencias
 
 
 
-* Djago-Bootstrap4 = 2.0.1
+* Django-Bootstrap4 = 2.0.1
 
  Para instalar django-bootstrap4 introducir la siguiente linea en la terminal
 
@@ -55,7 +55,7 @@ La aplicación tiene las siguientes dependencias
 
 ## Uso de la aplicación
 
-Para levantar el aplicativo web, abrir terminal en la carpeta raíz y escribir la siguiente linea:
+Para levantar el aplicativo web, se debe abrir la terminal en la carpeta raíz y escribir la siguiente linea:
 
 ```bash
 python manage.py runserver
