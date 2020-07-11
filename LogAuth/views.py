@@ -4,7 +4,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User, Permission
 from LogAuth.models import Profile
 from app1.models import Carrito
-from LogAuth.forms import UserForm
+from LogAuth.forms import (
+    UserForm,
+    ProfileForm,
+    UpdateUserForm
+)
 from django.db import IntegrityError
 
 
@@ -111,4 +115,16 @@ def register(request):
     template_name = 'register.html'
     return render(request, template_name, data)
 
+def update_user(request, pk):
+    template = 'update_user.html'
+    data = {}
 
+    data['profile_form'] = ProfileForm(request.POST or None, instance=request.user.profile)
+    data['user_form'] = UpdateUserForm(request.POST or None, instance=request.user)
+
+    if all([data['profile_form'].is_valid(), data['user_form'].is_valid()]):
+        data['profile_form'].save()
+        data['user_form'].save()
+
+        return redirect('fiesta:home')     
+    return render(request, template, data)

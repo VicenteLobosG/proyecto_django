@@ -7,7 +7,7 @@
 
 {% block breadcrumb %}
     
-  <li class="breadcrumb-item active" aria-current="page">Registro</li>
+  <li class="breadcrumb-item active" aria-current="page">Actualizar usuario</li>
 
 {% endblock %}
 
@@ -17,7 +17,7 @@
 
       <div class="row mt-2">
         <div class="col-md-8 col-lg-10">
-          <h1>Registro</h1>
+          <h1>Actualizar usuario</h1>
         </div>
         <div class="col-md-4 col-lg-2">
 
@@ -29,17 +29,16 @@
 
 {% block content_body %}
 
-  {% bootstrap_messages %}
-
-    
-  <form class="" method="post" >
+  <form class="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    
+    {% bootstrap_form user_form %}
          
-    {% bootstrap_form form %}
+    {% bootstrap_form profile_form %}
 
     {% buttons %}
       <button type="submit" class="btn btn-primary btn-lg btn-block">
-        <i class="fas fa-save"></i> Crear usuario
+        <i class="fas fa-save"></i> Actualizar
       </button>
     {% endbuttons %}
   </form>

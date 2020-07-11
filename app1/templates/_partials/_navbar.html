@@ -10,7 +10,7 @@
   <nav class="navbar navbar-dark bg-dark-primary">
     <div class="container">
       
-            <p class="text-right">Hola {{user_type}} <strong>{{user}} | </strong> <a href="{% url 'auth:logout' %}">Logout<i class="fas fa-sign-out-alt"></i></a></p>
+            <p class="text-right">Hola {{user_type}} <a href="{% url 'auth:update_user' user.pk %}">{{user}}</a> | <a href="{% url 'auth:logout' %}">Logout<i class="fas fa-sign-out-alt"></i></a></p>
       
     </div>
   </nav>

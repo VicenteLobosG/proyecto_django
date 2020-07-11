@@ -1,4 +1,6 @@
 from django import forms
+from LogAuth.models import Profile
+from django.contrib.auth.models import User
 
 COMUNAS = (
 	('RA', 'Rancagua'),
@@ -13,3 +15,18 @@ class UserForm(forms.Form):
 	fecha_nacimiento = forms.DateField(widget=DateInput, help_text='e.g. DD-MM-AAAA')
 	comuna = forms.ChoiceField(label='Comuna', widget=forms.Select, choices=COMUNAS)
 	direccion = forms.CharField(label='Direccion')
+
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ['fecha_nacimiento', 'comuna', 'direccion']
+		widgets = {
+			"fecha_nacimiento": forms.DateInput(attrs={
+				'help_text':'e.g. DD-MM-AAAA'
+				}),
+			}
+
+class UpdateUserForm(forms.ModelForm):
+	class Meta:
+		model = User
+		fields = ['username']
